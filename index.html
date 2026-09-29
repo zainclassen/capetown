@@ -3,15 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cape Town Interactive Photo Gallery</title>
+	<title>Cape Town Photo Gallery</title>
 	
-	<!-- Embedded CSS combining assignment rules with accessibility enhancements -->
 	<style>
 		body {
 			margin: 2%;
 			border: 1px solid black;
 			background-color: #b3b3b3;
-			font-family: Arial, sans-serif;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			padding: 20px;
 			box-sizing: border-box;
 		}
@@ -23,8 +22,9 @@
 			margin-bottom: 20px;
 		}
 
+		/* Main Display Box from Assignment */
 		#image {
-			line-height: 500px; /* Adjusted line-height for vertical alignment */
+			line-height: 650px;
 			width: 100%;
 			max-width: 800px;
 			height: 500px;
@@ -48,6 +48,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			transition: background-image 0.2s ease-in-out;
 		}
 
 		.gallery-container {
@@ -55,13 +56,14 @@
 			flex-wrap: wrap;
 			justify-content: center;
 			gap: 15px;
-			max-width: 1000px;
+			max-width: 900px;
 			margin: 0 auto;
 		}
 
+		/* Preview Thumbnail Styling */
 		.preview {
-			width: 140px;
-			height: 100px;
+			width: 120px;
+			height: 90px;
 			object-fit: cover;
 			border: 5px solid black;
 			border-radius: 6px;
@@ -69,63 +71,55 @@
 			transition: transform 0.2s ease, border-color 0.2s ease;
 		}
 
-		/* Hover & Accessibility Focus Ring Highlights */
+		/* Interactive Focus and Hover Highlights */
 		.preview:hover,
 		.preview:focus {
-			transform: scale(1.08);
-			border-color: #f59e0b;
-			outline: 4px solid #f59e0b;
+			transform: scale(1.1);
+			border-color: #ffcc00;
+			outline: 4px solid #ffcc00;
 			outline-offset: 3px;
+		}
+
+		img {
+			width: 100%;
 		}
 	</style>
 
-	<!-- Embedded JavaScript for Gallery Event Handlers -->
 	<script>
 		/**
-		 * Executed when page loads (onload).
-		 * Logs status and verifies accessibility attributes for all preview images.
+		 * Called when page finishes loading (onload event).
+		 * Configures accessibility attributes for all thumbnail images.
 		 */
 		function initializeGallery() {
-			console.log("Gallery Page Loaded Successfully.");
-			
-			// Select all preview image elements
-			const previewImages = document.querySelectorAll('.preview');
-			
-			// Loop through images to ensure tabindex is active and log readiness
-			for (let i = 0; i < previewImages.length; i++) {
-				previewImages[i].setAttribute("tabindex", "0");
-				console.log("Initialized landmark image " + (i + 1) + ": " + previewImages[i].alt);
+			console.log("Cape Town Gallery initialized.");
+			const previews = document.querySelectorAll('.preview');
+			for (let i = 0; i < previews.length; i++) {
+				previews[i].setAttribute("tabindex", "0");
 			}
 		}
 
 		/**
-		 * Triggered on mouseover and focus events.
-		 * Updates #image background-image to previewPic source and changes text to alt description.
-		 * @param {HTMLImageElement} previewPic - The image element being hovered/focused.
+		 * Updates main #image background and text content.
+		 * @param {HTMLImageElement} previewPic
 		 */
 		function upDate(previewPic) {
-			/* 1) Change the url for the background image of the div with id = "image" 
-			   to the source file of the preview image */
+			/* 1) Change background image URL of #image to source of preview image */
 			const imageDiv = document.getElementById("image");
 			imageDiv.style.backgroundImage = "url('" + previewPic.src + "')";
 
-			/* 2) Change the text of the div with id = "image" 
-			   to the alt text of the preview image */
+			/* 2) Change text of #image to alt text of preview image */
 			imageDiv.innerText = previewPic.alt;
 		}
 
 		/**
-		 * Triggered on mouseout and blur events.
-		 * Resets #image background-image and restores default instruction text.
+		 * Resets main #image background and restores original instruction text.
 		 */
 		function unDo() {
-			/* 1) Update the url for the background image of the div with id = "image" 
-			   back to the original image (empty url) */
+			/* 1) Reset background image back to empty */
 			const imageDiv = document.getElementById("image");
 			imageDiv.style.backgroundImage = "url('')";
 
-			/* 2) Change the text of the div with id = "image" 
-			   back to the original text */
+			/* 2) Restore original instruction text */
 			imageDiv.innerText = "Hover over or focus on an image below to display here.";
 		}
 	</script>
@@ -133,91 +127,97 @@
 
 <body onload="initializeGallery()">
 
-	<h1>Explore Cape Town Photo Gallery</h1>
+	<h1>Cape Town Landmarks Gallery</h1>
 
-	<!-- Main Display Box (Original assignment #image ID) -->
-	<div id="image" role="region" aria-live="polite" aria-label="Active Landmark Preview">
+	<!-- Main Display Canvas -->
+	<div id="image" role="region" aria-live="polite" aria-label="Large Image Preview">
 		Hover over or focus on an image below to display here.
 	</div>
 
-	<!-- Thumbnail Section with Cape Town Images -->
-	<div class="gallery-container" role="list" aria-label="Cape Town Landmarks Thumbnails">
+	<!-- Thumbnail Gallery Grid -->
+	<div class="gallery-container" role="list" aria-label="Cape Town Thumbnails">
 
-		<!-- Image 1: Table Mountain -->
+		<!-- Image 1: Table Mountain & City Bowl -->
 		<img 
 			class="preview" 
-			alt="Table Mountain overlooking Cape Town city bowl and bay" 
-			src="https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=800&q=80" 
+			alt="Table Mountain overlooking the vibrant city bowl of Cape Town" 
+			src="https://tse2.mm.bing.net/th/id/OIP.9C5wb42JEI9ZrnLRcdE3WAHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Table+Mountain'"
 			role="listitem"
 		>
 
-		<!-- Image 2: Bo-Kaap -->
+		<!-- Image 2: Bo-Kaap Colorful Houses -->
 		<img 
 			class="preview" 
-			alt="Colorful historic painted houses in Bo-Kaap neighborhood" 
-			src="https://images.unsplash.com/photo-1580619300306-030ec603411b?auto=format&fit=crop&w=800&q=80" 
+			alt="Brightly painted historic houses in the Bo-Kaap neighborhood" 
+			src="https://tse4.mm.bing.net/th/id/OIP.jBQEAm6GXA9sNNAbfVywxQHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Bo-Kaap'"
 			role="listitem"
 		>
 
-		<!-- Image 3: Boulders Beach -->
+		<!-- Image 3: Boulders Beach Penguins -->
 		<img 
 			class="preview" 
-			alt="African penguins resting on white sand at Boulders Beach" 
-			src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80" 
+			alt="African penguins gathering on the sandy shores of Boulders Beach" 
+			src="https://tse3.mm.bing.net/th/id/OIP.IHwXkUP9y2g6-AW92wRlfwHaEi?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Boulders+Beach'"
 			role="listitem"
 		>
 
-		<!-- Image 4: Camps Bay -->
+		<!-- Image 4: Muizenberg Beach Huts -->
 		<img 
 			class="preview" 
-			alt="Palm tree lined beach at Camps Bay facing the ocean" 
-			src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+			alt="Iconic colorful wooden bathing huts along Muizenberg Beach" 
+			src="https://www.capetown.travel/wp-content/uploads/Muizenberg-1-600x300.jpg" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Muizenberg+Beach'"
 			role="listitem"
 		>
 
-		<!-- Image 5: V&A Waterfront -->
+		<!-- Image 5: Camps Bay Coastline -->
 		<img 
 			class="preview" 
-			alt="Harbour ships docked at V&A Waterfront under sunset sky" 
-			src="https://images.unsplash.com/photo-1528164344705-47542687990d?auto=format&fit=crop&w=800&q=80" 
+			alt="Camps Bay beach coastline with palm trees and turquoise Atlantic waters" 
+			src="https://tse4.mm.bing.net/th/id/OIP.TQgWeuny8yMG7gcp2mimuAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Camps+Bay'"
 			role="listitem"
 		>
 
-		<!-- Image 6: Cape Point -->
+		<!-- Image 6: Signal Hill Sunset View -->
 		<img 
 			class="preview" 
-			alt="Dramatic sea cliff rocks and waves at Cape Point" 
-			src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80" 
+			alt="Panoramic view of Cape Town ocean and mountains from Signal Hill at sunset" 
+			src="https://www.capetourism.com/wp-content/uploads/2023/03/Signal-Hill-scaled.jpg" 
 			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
 			onblur="unDo()"
+			onerror="this.src='https://placehold.co/300x200/8e68ff/ffffff?text=Signal+Hill'"
 			role="listitem"
 		>
 
