@@ -24,7 +24,7 @@
 
 		/* Main Display Box from Assignment */
 		#image {
-			line-height: 650px;
+			line-height: 500px;
 			width: 100%;
 			max-width: 800px;
 			height: 500px;
@@ -62,8 +62,8 @@
 
 		/* Preview Thumbnail Styling */
 		.preview {
-			width: 120px;
-			height: 90px;
+			width: 130px;
+			height: 95px;
 			object-fit: cover;
 			border: 5px solid black;
 			border-radius: 6px;
@@ -86,23 +86,37 @@
 	</style>
 
 	<script>
+
 		/**
-		 * Called when page finishes loading (onload event).
-		 * Configures accessibility attributes for all thumbnail images.
+		 * 1) Called when page finishes loading (onload event).
+		 * 2) Uses a for loop to iterate through every preview image.
+		 * 3) Dynamically sets tabindex="0" for keyboard navigation.
 		 */
 		function initializeGallery() {
-			console.log("Cape Town Gallery initialized.");
-			const previews = document.querySelectorAll('.preview');
-			for (let i = 0; i < previews.length; i++) {
-				previews[i].setAttribute("tabindex", "0");
+			console.log("Page loaded successfully: initializeGallery() triggered!");
+
+			// Select all preview image elements
+			const images = document.querySelectorAll('.preview');
+			console.log("Found " + images.length + " preview images. Starting for loop to add tabindex attributes...");
+
+			// For loop through each image
+			for (let i = 0; i < images.length; i++) {
+				images[i].setAttribute("tabindex", "0");
+				console.log("Added tabindex='0' to image #" + (i + 1) + " (" + images[i].alt + ")");
 			}
+
+			console.log("Gallery initialization complete. All images are keyboard accessible!");
 		}
 
 		/**
 		 * Updates main #image background and text content.
+		 * Log message verifies event execution for mouseover / focus.
 		 * @param {HTMLImageElement} previewPic
 		 */
 		function upDate(previewPic) {
+			console.log("Event triggered: upDate() for image -> " + previewPic.alt);
+			console.log("Image Source URL: " + previewPic.src);
+
 			/* 1) Change background image URL of #image to source of preview image */
 			const imageDiv = document.getElementById("image");
 			imageDiv.style.backgroundImage = "url('" + previewPic.src + "')";
@@ -113,8 +127,11 @@
 
 		/**
 		 * Resets main #image background and restores original instruction text.
+		 * Log message verifies event execution for mouseout / blur.
 		 */
 		function unDo() {
+			console.log("Event triggered: unDo() -> Resetting background and text.");
+
 			/* 1) Reset background image back to empty */
 			const imageDiv = document.getElementById("image");
 			imageDiv.style.backgroundImage = "url('')";
@@ -137,12 +154,11 @@
 	<!-- Thumbnail Gallery Grid -->
 	<div class="gallery-container" role="list" aria-label="Cape Town Thumbnails">
 
-		<!-- Image 1: Table Mountain & City Bowl -->
+		<!-- Image 1: Table Mountain -->
 		<img 
 			class="preview" 
 			alt="Table Mountain overlooking the vibrant city bowl of Cape Town" 
 			src="https://tse2.mm.bing.net/th/id/OIP.9C5wb42JEI9ZrnLRcdE3WAHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
@@ -151,12 +167,11 @@
 			role="listitem"
 		>
 
-		<!-- Image 2: Bo-Kaap Colorful Houses -->
+		<!-- Image 2: Bo-Kaap Houses -->
 		<img 
 			class="preview" 
 			alt="Brightly painted historic houses in the Bo-Kaap neighborhood" 
 			src="https://tse4.mm.bing.net/th/id/OIP.jBQEAm6GXA9sNNAbfVywxQHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
@@ -170,7 +185,6 @@
 			class="preview" 
 			alt="African penguins gathering on the sandy shores of Boulders Beach" 
 			src="https://tse3.mm.bing.net/th/id/OIP.IHwXkUP9y2g6-AW92wRlfwHaEi?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
@@ -184,7 +198,6 @@
 			class="preview" 
 			alt="Iconic colorful wooden bathing huts along Muizenberg Beach" 
 			src="https://www.capetown.travel/wp-content/uploads/Muizenberg-1-600x300.jpg" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
@@ -198,7 +211,6 @@
 			class="preview" 
 			alt="Camps Bay beach coastline with palm trees and turquoise Atlantic waters" 
 			src="https://tse4.mm.bing.net/th/id/OIP.TQgWeuny8yMG7gcp2mimuAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
@@ -207,12 +219,11 @@
 			role="listitem"
 		>
 
-		<!-- Image 6: Signal Hill Sunset View -->
+		<!-- Image 6: Signal Hill Sunset -->
 		<img 
 			class="preview" 
 			alt="Panoramic view of Cape Town ocean and mountains from Signal Hill at sunset" 
 			src="https://www.capetourism.com/wp-content/uploads/2023/03/Signal-Hill-scaled.jpg" 
-			tabindex="0"
 			onmouseover="upDate(this)" 
 			onmouseout="unDo()"
 			onfocus="upDate(this)"
